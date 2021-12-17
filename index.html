@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}Michael's blog{% endblock %}
+{% block head %}{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="filter container card p-4 ">
+        <form action="" method="POST">
+            <div class="card-title filter-title" onchange="populate(this.id, 'slct2')">
+                <h1>Browse Jobs</h1>
+                <h5>Choose your:</h5>
+            </div>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.state.label(class="form-label")}} </br>
+                {{ form.state(class="form-control, dropdown-toggle", style="width:18rem; height:2rem;") }}
+            </p>
+            <p>
+                {{ form.area.label(class="form-label") }} </br>
+                {{ form.area(class="form-control, dropdown-toggle", style="width:18rem; height:2rem;") }}
+            </p>
+
+            <div>
+                {{form.submit(class="btn btn-primary")}}
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="f-group">
+        <label for="">State</label>
+        <select name="state" id="main-menu">
+            <option value="">--Choose State--</option>
+            <option value="">ACT</option>
+            <option value="">New South Wales</option>
+            <option value="">Northern Territory</option>
+            <option value="">South Australia</option>
+            <option value="">Tasmania</option>
+            <option value="">Victoria</option>
+            <option value="">Western Australia</option>
+        </select>
+    </div>
+    <div class="f-group">
+        <label for="">Area</label>
+        <select name="area" id="sub-menu"></select>
+    </div>
+</div>
+<div class="container">
+    <div class="card-deck-header text-center">
+        <h1>Active listings</h1>
+        </br>
+        <div class="card-deck">
+            {% for post in posts %}
+            {% if post.deleted == "0" %}
+            <div class="col-md-4">
+
+                <div class="card cards text-center">
+                    <div class="card-header head-place">
+                        <a href="#">{{ post.state }}</a> - <a href="#">{{ post.area }}</a> - <a href="#">{{ post.suburb
+                        }}</a>
+                    </div>
+                    <a href="{{ url_for('posts_bp.display_post', id=post.id) }}" class="card-link">
+                        <div class="card-body text-start">
+                            <p class="card-title">{{ post.poster.company }}</p>
+                            <strong class="card-text">{{ post.job_title }}</strong>
+                            <ul>
+                                <li class="card-text">
+                                    {{ post.highlight_1 }}
+                                </li>
+                                <li class="card-text">
+                                    {{ post.highlight_2 }}
+                                </li>
+                                <li class="card-text">
+                                    {{ post.highlight_3 }}
+                                </li>
+                            </ul>
+                            <strong class="card-text">Location: {{ post.area }}, {{ post.state }}</strong>
+                        </div>
+                    </a>
+                    <div class="card-footer text-muted container">
+                        <div class="row">
+                            <div class="col">
+                                {{ post.date_posted.strftime('%d-%b-%Y') }}
+                            </div>
+                            {% if current_user.id == post.poster.id %}
+                            <div class="col foot-butt">
+                                <a href="{{url_for('posts_bp.edit_post', id=post.id)}}">Edit Post</a>
+                                <a href="{{ url_for('posts_bp.delete_post', id=post.id) }}">Delete</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                </br>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+{% endblock %}

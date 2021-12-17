@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Test{% endblock %}
+{% block content %}
+
+{% if email %}
+<h2>Email: {{ email }}</h2>
+<h2>Password: {{ password }}</h2>
+<h2>I found this info:</h2>
+Name: {{ pw_to_check.name }} </br>
+Email: {{ pw_to_check.email }}</br>
+PW: {{ pw_to_check.password_hash }}</br>
+</br>
+Passed: {{ passed }}
+{% else %}
+<h1>What's your email and password</h1>
+<div class="shadow p-3 mb-5 bg-body rounded position-absolute top-50 start-50 translate-middle" style="width:20rem">
+    <form action="" method="POST">
+        <div class="text-center">
+            <h1>Test Password:</h1>
+        </div>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email.label(class="form-label") }} </br>
+            {{ form.email(class="form-control") }}
+        </p>
+        <p>
+            {{ form.password_hash.label(class="form-label") }} </br>
+            {{ form.password_hash(class="form-control") }}
+        </p>
+        <p>
+            {{form.submit(class="btn btn-secondary")}}
+        </p>
+    </form>
+</div>
+{% endif %}
+<table class="table table-striped">
+
+    {% for user in our_users %}
+    <tr>
+        <td>{{ user.id }}. {{ user.name }} - {{ user.email }} - {{ user.password_hash }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
