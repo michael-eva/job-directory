@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Signup{% endblock %}
+{% block content %}
+<div class="shadow p-3 mb-5 bg-body rounded position-absolute top-50 start-50 translate-middle" style="width:20rem">
+    <form action="" method="POST">
+        <div class="text-center">
+            <h1>Signup:</h1>
+        </div>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.firstname.label(class="form-label") }} </br>
+            {{ form.firstname(class="form-control") }}
+        </p>
+        <p>
+            {{ form.lastname.label(class="form-label") }} </br>
+            {{ form.lastname(class="form-control") }}
+        </p>
+        <p>
+            {{ form.company.label(class="form-label") }} </br>
+            {{ form.company(class="form-control") }}
+        </p>
+        <p>
+            {{ form.email.label(class="form-label") }} </br>
+            {{ form.email(class="form-control") }}
+        </p>
+        <ul>
+            {% for error in form.email.errors %}
+            <li style="color:red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        <p>
+            {{ form.password_hash.label(class="form-label") }} </br>
+            {{ form.password_hash(class="form-control") }}
+        </p>
+        <ul>
+            {% for error in form.password_hash.errors %}
+            <li style="color:red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+        <p>
+            {{ form.confirm.label(class="form-label") }} </br>
+            {{ form.confirm(class="form-control") }}
+        </p>
+
+        <p>
+            {{form.submit(class="btn btn-primary btn-sm")}} <a href="{{url_for('auth_bp.login')}}", class="btn btn-secondary btn-sm">Login</a>
+        </p>
+    </form>
+</div>
+{% endblock %}
