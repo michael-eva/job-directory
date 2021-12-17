@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Users{% endblock %}
+{% block head %}{% endblock %}
+
+{% block content %}
+
+    <table class="table table-striped" style="width:40%">
+        <thead>
+        <tr>
+            <th>Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        {% if user.deleted == "0" %}
+        <tr>
+            <td class="table-success">
+               <a href="{{ url_for('auth_bp.update', id=user.id) }}"> {{ user.firstname }} - {{ user.email }}</a> <a class="btn btn-sm btn-danger" href="{{ url_for('auth_bp.delete', id=user.id) }}">Make inactive</a>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table table-striped" style="width:40%">
+        <thead>
+        <tr>
+            <th>Inactive</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        {% if user.deleted == "1" %}
+        <tr>
+            <td class="table-danger">
+                {{ user.firstname }} - {{ user.email }} <a class="btn btn-sm btn-secondary" href="{{ url_for('auth_bp.restore', id=user.id) }}">Restore</a>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

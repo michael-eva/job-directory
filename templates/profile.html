@@ -1,0 +1,36 @@
+{% extends "sidebar.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col col-md-12" style="margin-left:20px;">
+        <h2> {{ current_user.firstname }}'s profile</h2>
+        <div class="card">
+            <div class="card-header">
+                Your details:
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong> ID: </strong>{{ current_user.id }}</li>
+                <li class="list-group-item"><strong>Name: </strong>{{ current_user.firstname }} {{ current_user.lastname
+                    }}
+                </li>
+                <li class="list-group-item"><strong>Email:</strong> {{ current_user.email }}</li>
+                <li class="list-group-item"><strong>Company:</strong> {{ current_user.company }}</li>
+                <li class="list-group-item"><strong>Date joined: </strong>{{
+                    current_user.date_added.strftime('%d-%b-%Y') }}
+                </li>
+            </ul>
+            <div class="card-footer">
+                <a href="{{url_for('auth_bp.update', id=current_user.id)}}">
+                    <button type="button" class="btn btn-secondary btn-sm">Edit details</button>
+                </a>
+                <a href="{{url_for('auth_bp.logout')}}">
+                    <button type="button" class="btn btn-secondary btn-sm">Logout</button>
+                </a>
+                <a href="{{ url_for('auth_bp.delete', id=current_user.id) }}">
+                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
