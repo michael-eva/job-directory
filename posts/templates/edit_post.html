@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Edit Job Post{% endblock %}
+{% block content %}
+{% if current_user.is_authenticated %}
+<div class="card d-flex position-absolute p-3 bg-body rounded " style="width:40rem;">
+    <form action="#" method="POST">
+        <div class="text-center">
+
+
+            <h1>Edit Job Listing:</h1>
+        </div>
+        {{ form.hidden_tag() }}
+       <p>
+            {{ form.job_title.label(class="form-label") }} </br>
+            {{ form.job_title(class="form-control") }}
+        </p>
+        <p>
+            {{ form.state.label(class="form-label") }} </br>
+            {{ form.state(class="form-control") }}
+        </p>
+        <p>
+            {{ form.area.label(class="form-label") }} </br>
+            {{ form.area(class="form-control") }}
+        </p>
+        <p>
+            {{ form.suburb.label(class="form-label") }} </br>
+            {{ form.suburb(class="form-control") }}
+        </p>
+        <p>
+            {{ form.description.label(class="form-label") }} </br>
+            {{ form.description(class="form-control", rows="5") }}
+        </p>
+        <p>
+            {{ form.highlight_1.label(class="form-label") }} </br>
+            {{ form.highlight_1(class="form-control") }}
+        <p>
+            {{ form.highlight_2.label(class="form-label") }} </br>
+            {{ form.highlight_2(class="form-control") }}
+        </p>
+        <p>
+
+            {{ form.highlight_3.label(class="form-label") }} </br>
+            {{ form.highlight_3(class="form-control") }}
+        </p>
+        <div>
+            {{form.submit(class="btn btn-primary")}} <a href="#" style="padding-left:1rem; color:inherit;">Preview</a>
+        </div>
+    </form>
+</div>
+{% else %}
+<h2>Must be logged in...</h2>
+<p>Sorry, you must be logged in to edit this post.</p>
+<a href="{{url_for('auth_bp.login')}}">Login here</a>
+{% endif %}
+{% endblock %}
