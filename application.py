@@ -13,7 +13,6 @@ application = Flask(__name__)
 db = SQLAlchemy(application)
 migrate = Migrate(application, db)
 
-heroku buildpacks:set heroku/python
 
 def create_app():
     application.config['SECRET_KEY'] = "SomePasswordOnlyIKnow"
