@@ -118,7 +118,7 @@ class Area(db.Model):
 @application.route('/')
 def index():
     form = FilterForm()
-    posts = Job.query.all()
+    posts = Job.query.order_by(Job.date_posted.desc())
     form.state.choices = [(state.id, state.name) for state in State.query.all()]
     if request.method == 'POST':
         area = Area.query.filter_by()
