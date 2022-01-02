@@ -7,21 +7,16 @@ from forms import LoginForm, SignupForm, PasswordForm, NewJobForm, FilterForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from datetime import datetime
+import config
 
 
 application = Flask(__name__)
 db = SQLAlchemy(application)
 migrate = Migrate(application, db)
+application.config.from_object("config.DevelopmentConfig")
 
 
 def create_app():
-    application.config['SECRET_KEY'] = "SomePasswordOnlyIKnow"
-    application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite'
-    # application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql:///username:password@localhost/db_name'
-    # application.config['MYSQL_HOST'] = 'localhost'
-    # application.config['MYSQL_USER'] = 'root'
-    # application.config['MYSQL_PASSWORD'] = ''
-    # application.config['MYSQL_DB'] = 'flask'
     db.init_app(application)
 
     from auth.auth import auth_bp
@@ -155,4 +150,4 @@ def areabystate():
 
 if __name__ == '__main__':
     napp = create_app()
-    napp.run(debug=True)
+    napp.run()
